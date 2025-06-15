@@ -1,10 +1,10 @@
 package br.com.ecommerce.checkout.service;
 
 import br.com.ecommerce.checkout.entity.CheckoutEntity;
-import br.com.ecommerce.checkout.event.CheckoutCreatedEvent;
+import br.com.ecommerce.common.event.CheckoutCreatedEvent;
 import br.com.ecommerce.checkout.repository.CheckoutRepository;
 import br.com.ecommerce.checkout.resource.CheckoutRequest;
-import br.com.ecommerce.checkout.streaming.CheckoutCreatedProducer;
+import br.com.ecommerce.checkout.streaming.CheckoutCreatedStreamBrigde;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.UUID;
 public class CheckoutServiceImpl implements CheckoutService {
 
     private final CheckoutRepository checkoutRepository;
-    private final CheckoutCreatedProducer checkoutCreatedProducer;
+    private final CheckoutCreatedStreamBrigde checkoutCreatedStreamBridge;
 
     @Override
     public Optional<CheckoutEntity> create(CheckoutRequest checkoutRequest) {
@@ -32,7 +32,7 @@ public class CheckoutServiceImpl implements CheckoutService {
                 .setStatus(entitySaved.getStatus().name())
                 .build();
 
-        checkoutCreatedProducer.send(event);
+        checkoutCreatedStreamBridge.send(event);
 
         return Optional.of(entitySaved);
     }
