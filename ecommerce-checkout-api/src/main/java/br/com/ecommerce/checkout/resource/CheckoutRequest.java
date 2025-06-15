@@ -39,7 +39,7 @@ public class CheckoutRequest implements Serializable {
 
     @NotBlank(message = "O CEP é obrigatório")
     @Pattern(regexp = "\\d{5}-?\\d{3}", message = "CEP deve estar no formato 00000-000")
-    private String cep;
+    private String zip;
 
     @NotNull(message = "Informe se deseja salvar o endereço")
     private Boolean saveAddress;
@@ -59,7 +59,7 @@ public class CheckoutRequest implements Serializable {
 
     @NotBlank(message = "A data de validade do cartão é obrigatória")
     @Pattern(regexp = "(0[1-9]|1[0-2])/\\d{2}", message = "Data de validade deve estar no formato MM/AA")
-    private String cardDate;
+    private String cardExpiration;
 
     @NotBlank(message = "O CVV do cartão é obrigatório")
     @Pattern(regexp = "\\d{3}", message = "CVV deve conter 3 dígitos")
